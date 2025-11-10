@@ -1,0 +1,122 @@
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Modern light mode with cyan brand color #4FE8ED */
+    --background: 185 20% 98%; /* Slightly off-white with cyan tone */
+    --foreground: 185 70% 15%; /* Darker text with cyan undertone */
+    --card: 0 0% 100%; /* Pure white cards for contrast */
+    --card-foreground: 185 70% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 185 70% 15%;
+    --primary: 183 85% 45%; /* Your logo color #4FE8ED in HSL */
+    --primary-foreground: 0 0% 100%; /* Dark text on bright cyan */
+    --secondary: 185 40% 95%; /* Soft cyan tint */
+    --secondary-foreground: 185 70% 15%;
+    --muted: 185 30% 94%; /* Subtle cyan tint */
+    --muted-foreground: 185 15% 45%; /* Muted text with hint of cyan */
+    --accent: 183 85% 95%; /* Light cyan accent */
+    --accent-foreground: 183 97% 35%; /* Darker cyan for contrast */
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 185 25% 88%; /* Subtle cyan tint */
+    --input: 185 25% 90%;
+    --ring: 183 97% 62%; /* Logo color for focus rings */
+    --radius: 0.75rem;
+
+    --chart-1: 183 97% 62%;
+    --chart-2: 183 85% 70%;
+    --chart-3: 183 75% 75%;
+    --chart-4: 183 65% 80%;
+    --chart-5: 183 55% 85%;
+  }
+
+  .dark {
+    /* Enhanced dark mode with vibrant cyan accents */
+    --background: 185 20% 6%; /* Deep background with cyan undertone */
+    --foreground: 0 0% 98%;
+    --card: 185 15% 9%; /* Slightly lighter than background */
+    --card-foreground: 0 0% 98%;
+    --popover: 185 15% 9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 183 90% 55%; /* Your bright logo color #4FE8ED */
+    --primary-foreground: 185 20% 6%; /* Dark background color */
+    --secondary: 185 15% 15%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 185 15% 16%;
+    --muted-foreground: 0 0% 65%;
+    --accent: 183 70% 20%; /* Deeper cyan accent for dark mode */
+    --accent-foreground: 183 97% 75%; /* Lighter cyan text */
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 185 15% 18%;
+    --input: 185 15% 18%;
+    --ring: 183 97% 62%;
+
+    --chart-1: 183 97% 62%;
+    --chart-2: 183 85% 70%;
+    --chart-3: 183 75% 75%;
+    --chart-4: 183 65% 80%;
+    --chart-5: 183 55% 85%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
+  }
+}
+
+@layer utilities {
+  .step {
+    counter-increment: step;
+  }
+
+  .step:before {
+    @apply absolute inline-flex h-9 w-9 items-center justify-center rounded-full border-4 border-background bg-muted text-center -indent-px font-mono text-base font-medium;
+    @apply ml-[-50px] mt-[-4px];
+    content: counter(step);
+  }
+
+  /* Optional: Add a gradient utility with your brand color */
+  .text-gradient-brand {
+    background: linear-gradient(135deg, #4fe8ed 0%, #36d4d9 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+.text-gradient_indigo-purple {
+  background: linear-gradient(90deg, #6366f1 0%, rgb(168 85 247 / 0.8) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.chat-container::-webkit-scrollbar {
+  display: none;
+}
+
+.mdxeditor-root-contenteditable {
+  height: calc(100vh - 250px) !important;
+  overflow-y: auto !important;
+  div {
+    @apply text-zinc-800 dark:text-zinc-300;
+  }
+  code {
+    span {
+      @apply bg-muted;
+    }
+  }
+}

@@ -1,0 +1,47 @@
+"use server";
+
+import { revalidatePath } from "next/cache";
+import { auth, currentUser } from "@clerk/nextjs/server";
+
+import { getCurrentUser, getCurrentUserId } from "@/lib/auth-helpers";
+import { prisma } from "@/lib/db";
+import { userNameSchema } from "@/lib/validations/user";
+
+export type FormData = {
+  name: string;
+};
+
+export async function updateUserName(userId: string, data: FormData) {
+  try {
+    const userId = await getCurrentUserId();
+    if (!userId) {
+      return null;
+    }
+    const user = await getCurrentUser();
+    if (!user) {
+      return { status: "error" };
+    }
+
+    if (!user || userId !== userId) {
+      throw new Error("Unauthorized");
+    }
+
+    const { name } = userNameSchema.parse(data);
+
+    // Update the user name.
+    await prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        name: name,
+      },
+    });
+
+    revalidatePath("/dashboard/settings");
+    return { status: "success" };
+  } catch (error) {
+    // console.log(error)
+    return { status: "error" };
+  }
+}

@@ -18,7 +18,7 @@ export default function ApprovePilotOwnerPage() {
 
   // List of emails that can approve requests
   const AUTHORIZED_ADMINS = [
-    "maruf.rayhan14@gmail.com",
+    "mahboobelahi93@gmail.com",
     "admin@ai-prism.dev",
     // Add more authorized emails here
   ];

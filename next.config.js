@@ -20,7 +20,7 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "aiprism-dev-bucket.s3.eu-north-1.amazonaws.com",
+        hostname: "aiprism-prod-bucket.s3.eu-north-1.amazonaws.com",
       },
     ],
   },

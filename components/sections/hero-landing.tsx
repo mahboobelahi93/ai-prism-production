@@ -18,7 +18,7 @@ export default async function HeroLanding() {
         <p className="max-w-2xl text-balance font-orbitron text-muted-foreground sm:text-lg">
           <b>Open access</b> network portal <br />
           Giving access to our infrastructure remotely for certification and
-          training, and its network of open Access pilots.
+          training, and its network of open Access pilots
         </p>
 
         <div className="flex justify-center space-x-2 sm:space-x-4">

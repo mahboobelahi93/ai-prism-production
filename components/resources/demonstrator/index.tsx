@@ -19,25 +19,25 @@ const videos: Video[] = [
     id: "1",
     title: "Prodigi Cell",
     thumbnail:
-      "https://aiprism-dev-bucket.s3.eu-north-1.amazonaws.com/demonstrators/thumbnail/photo_1_2025-02-26_14-15-23.jpg",
+      "https://aiprism-prod-bucket.s3.eu-north-1.amazonaws.com/demonstrators/thumbnail/photo_1_2025-02-26_14-15-23.jpg",
     videoUrl:
-      "https://aiprism-dev-bucket.s3.eu-north-1.amazonaws.com/demonstrators/2024-07-18+14-05-44.mp4",
+      "https://aiprism-prod-bucket.s3.eu-north-1.amazonaws.com/demonstrators/2024-07-18+14-05-44.mp4",
   },
   {
     id: "2",
     title: "Vigo Pilot",
     thumbnail:
-      "https://aiprism-dev-bucket.s3.eu-north-1.amazonaws.com/demonstrators/thumbnail/vigo.png",
+      "https://aiprism-prod-bucket.s3.eu-north-1.amazonaws.com/demonstrators/thumbnail/vigo.png",
     videoUrl:
-      "https://aiprism-dev-bucket.s3.eu-north-1.amazonaws.com/demonstrators/Vigo.mp4",
+      "https://aiprism-prod-bucket.s3.eu-north-1.amazonaws.com/demonstrators/Vigo.mp4",
   },
   {
     id: "3",
     title: "Silverline Use Case",
     thumbnail:
-      "https://aiprism-dev-bucket.s3.eu-north-1.amazonaws.com/demonstrators/thumbnail/silverline-usecase.png",
+      "https://aiprism-prod-bucket.s3.eu-north-1.amazonaws.com/demonstrators/thumbnail/silverline-usecase.png",
     videoUrl:
-      "https://aiprism-dev-bucket.s3.eu-north-1.amazonaws.com/demonstrators/Silverline+Use+Case.mp4",
+      "https://aiprism-prod-bucket.s3.eu-north-1.amazonaws.com/demonstrators/Silverline+Use+Case.mp4",
   },
 ];
 

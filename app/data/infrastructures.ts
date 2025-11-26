@@ -15,7 +15,7 @@ export const infrastructures: Infrastructure[] = [
       "An industrial environment with two assembly lines, different robots equipped with smart grippers, collaborative robots, and teaching by demonstration station",
     descriptionUrl: "https://research.tuni.fi/fast/environments/",
     image:
-      "https://aiprism-dev-bucket.s3.eu-north-1.amazonaws.com/infrastructures/Tampere-university_pic.jpg",
+      "https://aiprism-prod-bucket.s3.eu-north-1.amazonaws.com/infrastructures/Tampere-university_pic.jpg",
   },
   {
     id: "2",
@@ -24,7 +24,7 @@ export const infrastructures: Infrastructure[] = [
       "Big Data and AI infrastructure to facilitate development, testing and deployment of AI-PRISM solutions.",
     descriptionUrl: "https://datahub.iti.upv.es/",
     image:
-      "https://aiprism-dev-bucket.s3.eu-north-1.amazonaws.com/infrastructures/IT-Data_pic.jpg",
+      "https://aiprism-prod-bucket.s3.eu-north-1.amazonaws.com/infrastructures/IT-Data_pic.jpg",
   },
   {
     id: "3",
@@ -33,7 +33,7 @@ export const infrastructures: Infrastructure[] = [
       "Fully automated manufacturing line and automated warehouse equipped withedge computers, mobile robots, and collaborative robots.",
     descriptionUrl: "https://rob4ind.upv.es/",
     image:
-      "https://aiprism-dev-bucket.s3.eu-north-1.amazonaws.com/infrastructures/UPV_pic.jpg",
+      "https://aiprism-prod-bucket.s3.eu-north-1.amazonaws.com/infrastructures/UPV_pic.jpg",
   },
   {
     id: "4",
@@ -43,6 +43,6 @@ export const infrastructures: Infrastructure[] = [
     descriptionUrl:
       "https://www.profactor.at/forschung/industrielle-automatisierungssysteme/human-centered-computing/projekte-archiv/smart-factory-lab/",
     image:
-      "https://aiprism-dev-bucket.s3.eu-north-1.amazonaws.com/infrastructures/PROF_pic.jpg",
+      "https://aiprism-prod-bucket.s3.eu-north-1.amazonaws.com/infrastructures/PROF_pic.jpg",
   },
 ];

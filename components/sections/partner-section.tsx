@@ -13,6 +13,153 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
+type AllianceLogo = {
+  name: string;
+  href: string;
+  src: string; // must be under /public, referenced as /logo/alliance_logo/...
+};
+
+function AllianceLogoCarousel({
+  logos,
+  speedSeconds = 35,
+}: {
+  logos: AllianceLogo[];
+  speedSeconds?: number;
+}) {
+  // Duplicate list for seamless looping
+  const loop = [...logos, ...logos];
+
+  return (
+    <div className="group relative overflow-hidden rounded-xl border border-border bg-background">
+      {/* Edge fades so it looks less janky */}
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-background to-transparent" />
+      {/* <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-background to-transparent" /> */}
+
+      <div
+        className="flex w-max items-center gap-10 py-6 will-change-transform [animation-play-state:running] group-hover:[animation-play-state:paused]"
+        style={{
+          animation: `alliance-scroll ${speedSeconds}s linear infinite`,
+        }}
+      >
+        {loop.map((logo, idx) => (
+          <a
+            key={`${logo.name}-${idx}`}
+            href={logo.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex h-14 items-center justify-center"
+            aria-label={logo.name}
+            title={logo.name}
+          >
+            <img
+              src={logo.src}
+              alt={logo.name}
+              className="h-12 w-auto object-contain opacity-80 transition group-hover:opacity-100"
+              loading="lazy"
+            />
+          </a>
+        ))}
+      </div>
+
+      {/* Local keyframes for this file */}
+      <style jsx>{`
+        @keyframes alliance-scroll {
+          from {
+            transform: translateX(0);
+          }
+          to {
+            transform: translateX(-50%);
+          }
+        }
+      `}</style>
+    </div>
+  );
+}
+
+const allianceMembers: { name: string; href: string; src: string }[] = [
+  {
+    name: "AI EDIH",
+    href: "https://www.aiedihturkiye.com/en",
+    src: "/logo/alliance_logo/AIEDIH.png",
+  },
+  {
+    name: "ALBICT",
+    href: "https://albict.al/",
+    src: "/logo/alliance_logo/ALBICT.png",
+  },
+    {
+    name: "Better Quest",
+    href: "https://example.com",
+    src: "/logo/alliance_logo/BQ.jpg",
+  },
+    {
+    name: "EDIH4 Marche",
+    href: "https://www.edih4marche.eu/en/",
+    src: "/logo/alliance_logo/DIHM.png",
+  },
+    {
+    name: "DigitMAK",
+    href: "https://digitmak.mk/",
+    src: "/logo/alliance_logo/DM.png",
+  },
+    {
+    name: "Institute of Electronics and Computer Science",
+    href: "https://ai4csm.eu/index.php",
+    src: "/logo/alliance_logo/EDI.png",
+  },
+    {
+    name: "GDANSK University of Technology",
+    href: "https://pg.edu.pl/en",
+    src: "/logo/alliance_logo/GU.jpg",
+  },
+  //   {
+  //   name: "ALBICT",
+  //   href: "https://albict.al/",
+  //   src: "/logo/alliance_logo/ALBICT.png",
+  // },
+    {
+    name: "IFAR LAB",
+    href: "https://ifarlab.ogu.edu.tr/",
+    src: "/logo/alliance_logo/ILE.jpg",
+  },
+    {
+    name: "it_dnlpro",
+    href: "https://itdni.pro/en/",
+    src: "/logo/alliance_logo/ITD.png",
+  },
+      {
+    name: "LEANISTIC",
+    href: "https://www.leanistic.com/",
+    src: "/logo/alliance_logo/LLW.jpg",
+  },
+      {
+    name: "REDx Edge",
+    href: "https://example.com",
+    src: "/logo/alliance_logo/rdx.jpg",
+  },
+      {
+    name: "South Africa Eye",
+    href: "https://example.com",
+    src: "/logo/alliance_logo/SAE.jpg",
+  },
+      {
+    name: "School of Electrical Engineering, University of Belgrad",
+    href: "https://www.etf.bg.ac.rs/en",
+    src: "/logo/alliance_logo/SEEB.png",
+  },
+      {
+    name: "tecnalia",
+    href: "https://www.tecnalia.com/en",
+    src: "/logo/alliance_logo/tecnalia.png",
+  },
+      {
+    name: "University of Belgrad",
+    href: "https://www.bg.ac.rs/home/",
+    src: "/logo/alliance_logo/UoB.png",
+  },
+];
+
+
 const demonstrators = [
   {
     category: "Furniture Manufacturing",
@@ -146,6 +293,21 @@ export default function DemonstratorsSection() {
 
   return (
     <>
+      <section className="border-b border-t border-border bg-muted/30 py-20">
+        <div className="container mx-auto px-4">
+          <div className="mb-12 text-center">
+            <h2 className="mb-4 text-balance text-3xl font-bold md:text-4xl">
+              Alliance Members
+            </h2>
+            <p className="mx-auto max-w-2xl text-pretty text-muted-foreground">
+              See the prestigious members of the AI-Prism Alliance.
+            </p>
+          </div>
+
+          <AllianceLogoCarousel logos={allianceMembers} speedSeconds={40} />
+        </div>
+      </section>
+      {/* Original */}
       <section className="border-b border-t border-border bg-muted/30 py-20">
         <div className="container mx-auto px-4">
           <div className="mb-12 text-center">

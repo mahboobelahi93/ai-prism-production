@@ -232,10 +232,42 @@ const allianceMembers: AllianceLogo[] = [
     src: "/logo/alliance_logo/tecnalia.png",
   },
   {
-    name: "University of Belgrad",
-    href: "https://www.bg.ac.rs/home/",
-    src: "/logo/alliance_logo/UoB.png",
+    name: "Technical University Cluj Napoca",
+    href: "https://www.utcluj.ro/en/",
+    src: "/logo/alliance_logo/TechnicalUniversityClujNapoca.png",
   },
+
+    {
+    name: "Katty Fashion",
+    href: "https://katty-fashion.com/",
+    src: "/logo/alliance_logo/KFrebrandingLogo.png",
+  },
+    {
+    name: "Jackdaw Studio",
+    href: "https://jackdaw-studio.ro/",
+    src: "/logo/alliance_logo/JackdawStudio.png",
+  },
+    {
+    name: "IoTiX",
+    href: "https://iotix.ro/",
+    src: "/logo/alliance_logo/IoTiX_logo_black.png",
+  },
+    {
+    name: "Cadran",
+    href: "https://cadrantechnologies.eu/",
+    src: "/logo/alliance_logo/CadranTechnologies.png",
+  },
+    {
+    name: "Bioeuro",
+    href: "https://bioeuro.ro/",
+    src: "/logo/alliance_logo/Bioeuro.png",
+  },
+    {
+    name: "Babes Bolyai University",
+    href: "https://www.ubbcluj.ro/en/",
+    src: "/logo/alliance_logo/BabesBolyaiUniversity.png",
+  },
+
 ];
 
 const demonstrators = [

@@ -23,7 +23,7 @@ export default async function HeroLanding() {
 
         <div className="flex justify-center space-x-2 sm:space-x-4">
           <Link
-            href="https://aiprism.eu/ai-alliance/"
+            href="https://aiprism.eu/alliance/"
             rel="noreferrer"
             target="_blank"
             prefetch={true}
@@ -50,7 +50,7 @@ export default async function HeroLanding() {
             )}
           >
             <Icons.laptop className="size-4" />
-            <span>Product Tour</span>
+            <span>Platform Tour</span>
           </Link>
         </div>
       </div>

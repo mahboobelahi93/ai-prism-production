@@ -1,19 +1,7 @@
-
-
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { ArrowRight } from "lucide-react";
-
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Armchair, ChefHat, Cpu, Factory, Home } from "lucide-react";
 
 type AllianceLogo = {
   name: string;
@@ -236,61 +224,48 @@ const allianceMembers: AllianceLogo[] = [
     href: "https://www.utcluj.ro/en/",
     src: "/logo/alliance_logo/TechnicalUniversityClujNapoca.png",
   },
-
-    {
+  {
     name: "Katty Fashion",
     href: "https://katty-fashion.com/",
     src: "/logo/alliance_logo/KFrebrandingLogo.png",
   },
-    {
+  {
     name: "Jackdaw Studio",
     href: "https://jackdaw-studio.ro/",
     src: "/logo/alliance_logo/JackdawStudio.png",
   },
-    {
+  {
     name: "IoTiX",
     href: "https://iotix.ro/",
     src: "/logo/alliance_logo/IoTiX_logo_black.png",
   },
-    {
+  {
     name: "Cadran",
     href: "https://cadrantechnologies.eu/",
     src: "/logo/alliance_logo/CadranTechnologies.png",
   },
-    {
+  {
     name: "Bioeuro",
     href: "https://bioeuro.ro/",
     src: "/logo/alliance_logo/Bioeuro.png",
   },
-    {
+  {
     name: "Babes Bolyai University",
     href: "https://www.ubbcluj.ro/en/",
     src: "/logo/alliance_logo/BabesBolyaiUniversity.png",
   },
-
 ];
 
 const demonstrators = [
   {
     category: "Furniture Manufacturing",
     location: "Spain",
+    icon: <Armchair className="h-5 w-5 text-primary" />,
     partners: [
-      {
-        name: "Andreu",
-        logo: "/logo/andreu.png",
-      },
-      {
-        name: "Universitat Politècnica de València",
-        logo: "/logo/univalencia.png",
-      },
-      {
-        name: "COMAU",
-        logo: "/logo/univalencia.png",
-      },
-      {
-        name: "Robotnik",
-        logo: "/logo/iti.png",
-      },
+      { name: "Andreu", logo: "/logo/andreu.png" },
+      { name: "Universitat Politècnica de València", logo: "/logo/univalencia.png" },
+      { name: "COMAU", logo: "/logo/univalencia.png" },
+      { name: "Robotnik", logo: "/logo/iti.png" },
     ],
     challenge:
       "Painting and sanding processes are performed manually by skilled operators. Some furniture pieces require elaborate painting which is difficult to automate.",
@@ -304,15 +279,10 @@ const demonstrators = [
   {
     category: "Home Appliances",
     location: "Turkey",
+    icon: <Home className="h-5 w-5 text-primary" />,
     partners: [
-      {
-        name: "Silverline",
-        logo: "/logo/silverline.png",
-      },
-      {
-        name: "TEKNOPAR",
-        logo: "/logo/teknopar.png",
-      },
+      { name: "Silverline", logo: "/logo/silverline.png" },
+      { name: "TEKNOPAR", logo: "/logo/teknopar.png" },
     ],
     challenge:
       "Manufacturing of classical & chimney hoods, gas hobs and built-in ovens requires precision and flexibility. The company has 1800 employees across 103,000 m² of manufacturing space in Merzifon, Turkey.",
@@ -327,15 +297,10 @@ const demonstrators = [
   {
     category: "Electronics",
     location: "Poland",
+    icon: <Cpu className="h-5 w-5 text-primary" />,
     partners: [
-      {
-        name: "VIGO Photonics",
-        logo: "/logo/vigo.png",
-      },
-      {
-        name: "Warsaw University of Technology",
-        logo: "/logo/lukasiewicz.png",
-      },
+      { name: "VIGO Photonics", logo: "/logo/vigo.png" },
+      { name: "Warsaw University of Technology", logo: "/logo/lukasiewicz.png" },
     ],
     challenge:
       "Semiconductor materials and photonic instruments manufacturing requires precision handling. VIGO specializes in MWIR and LWIR detectors with complete front-end and back-end production lines.",
@@ -350,15 +315,10 @@ const demonstrators = [
   {
     category: "Food & Beverage",
     location: "Greece",
+    icon: <ChefHat className="h-5 w-5 text-primary" />,
     partners: [
-      {
-        name: "Athenian Brewery",
-        logo: "/logo/athenian.png",
-      },
-      {
-        name: "Wings ICT Solutions",
-        logo: "/logo/wings.png",
-      },
+      { name: "Athenian Brewery", logo: "/logo/athenian.png" },
+      { name: "Wings ICT Solutions", logo: "/logo/wings.png" },
     ],
     challenge:
       "Brewing production lines are highly automated but some tasks are difficult due to complexity. Workers perform monotonous and strenuous tasks, exposing them to repetitive strain injury or musculoskeletal disorder risks.",
@@ -373,15 +333,10 @@ const demonstrators = [
   {
     category: "Generic Demonstration Facility",
     location: "Austria",
+    icon: <Factory className="h-5 w-5 text-primary" />,
     partners: [
-      {
-        name: "KEBA",
-        logo: "/logo/keba.png",
-      },
-      {
-        name: "Profactor",
-        logo: "/logo/profactor.png",
-      },
+      { name: "KEBA", logo: "/logo/keba.png" },
+      { name: "Profactor", logo: "/logo/profactor.png" },
     ],
     challenge:
       "Providing a flexible demonstration and testing environment for various manufacturing scenarios, enabling technology validation across different industries.",
@@ -396,9 +351,8 @@ const demonstrators = [
 ];
 
 export default function DemonstratorsSection() {
-  const [selectedDemo, setSelectedDemo] = useState<
-    (typeof demonstrators)[0] | null
-  >(null);
+  const [selectedDemoIndex, setSelectedDemoIndex] = useState(0);
+  const selectedDemo = demonstrators[selectedDemoIndex];
 
   return (
     <>
@@ -424,78 +378,69 @@ export default function DemonstratorsSection() {
               Industry Demonstrators
             </h2>
             <p className="mx-auto max-w-2xl text-pretty text-muted-foreground">
-              Real-world implementations across key manufacturing sectors,
-              demonstrating human-robot collaboration with leading industry
-              partners.
+              Real-world pilot implementations showcasing how AI-PRISM enables human–robot collaboration across
+               diverse manufacturing sectors with leading industrial partners.
             </p>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-8">
-            {demonstrators.map((demo, index) => (
-              <Card
-                key={index}
-                className="group w-full overflow-hidden transition-all hover:shadow-lg md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)]"
-              >
-                <CardContent className="p-6">
-                  <div className="mb-4">
-                    <h3 className="mb-2 text-xl font-semibold">
-                      {demo.category}
-                    </h3>
-                    <p className="text-sm text-muted-foreground">
-                      {demo.location}
-                    </p>
-                  </div>
+          <div className="grid gap-8 lg:grid-cols-3">
+            <div className="space-y-4">
+              {demonstrators.map((demo, index) => (
+                <button
+                  key={index}
+                  onClick={() => setSelectedDemoIndex(index)}
+                  className={`w-full rounded-xl border p-5 text-left transition ${
+                    selectedDemoIndex === index
+                      ? "border-primary bg-primary/10 shadow-sm"
+                      : "bg-background hover:bg-muted"
+                  }`}
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10">
+                      {demo.icon}
+                    </div>
 
-                  <div className="mb-4">
-                    <p className="mb-3 text-sm font-medium text-muted-foreground">
-                      Partners:
-                    </p>
-                    <div className="grid grid-cols-2 gap-3">
-                      {demo.partners.map((partner, pIndex) => (
-                        <div
-                          key={pIndex}
-                          className="flex items-center justify-center rounded-md border border-border bg-background p-3"
-                        >
-                          <img
-                            src={partner.logo || "/placeholder.svg"}
-                            alt={partner.name}
-                            className="h-24 w-auto object-contain"
-                          />
-                        </div>
-                      ))}
+                    <div className="min-w-0 flex-1">
+                      <div className="font-semibold text-lg">{demo.category}</div>
+                      <div className="text-sm text-muted-foreground">
+                        {demo.location}
+                      </div>
                     </div>
                   </div>
 
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="group/btn -ml-3 mt-2 gap-1 text-primary"
-                    onClick={() => setSelectedDemo(demo)}
-                  >
-                    Read More
-                    <ArrowRight className="size-4 transition-transform group-hover/btn:translate-x-1" />
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
+                  <div className="mt-4 flex flex-wrap items-center gap-3">
+                    {demo.partners.slice(0, 3).map((partner, pIndex) => (
+                      <div
+                        key={pIndex}
+                        className="flex h-14 w-24 items-center justify-center rounded-md border border-border bg-background p-3"
+                      >
+                        <img
+                          src={partner.logo || "/placeholder.svg"}
+                          alt={partner.name}
+                          className="max-h-full max-w-full object-contain"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </button>
+              ))}
+            </div>
 
-      <Dialog open={!!selectedDemo} onOpenChange={() => setSelectedDemo(null)}>
-        <DialogContent className="max-h-[90vh] max-w-3xl overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle className="text-2xl">
-              {selectedDemo?.category}
-            </DialogTitle>
-            <DialogDescription className="text-base">
-              {selectedDemo?.location}
-            </DialogDescription>
-          </DialogHeader>
+            <div className="lg:col-span-2 rounded-2xl border border-border border-l-4 border-l-primary bg-gradient-to-b from-background to-muted/30 p-8 shadow-md hover:shadow-lg transition-shadow">
+              <div className="mb-6 flex items-start gap-4">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary/10">
+                  {selectedDemo.icon}
+                </div>
 
-          {selectedDemo && (
-            <div className="space-y-6 pt-4">
-              <div>
+                <div>
+                  <h3 className="text-2xl font-semibold">
+                   Pilot Demonstrator: {selectedDemo.category}
+                  </h3>
+                  <p className="text-muted-foreground">{selectedDemo.location}</p>
+                </div>
+              </div>
+
+              <div className="mb-8">
                 <h4 className="mb-3 text-lg font-semibold">
                   Participating Partners
                 </h4>
@@ -503,7 +448,7 @@ export default function DemonstratorsSection() {
                   {selectedDemo.partners.map((partner, index) => (
                     <div
                       key={index}
-                      className="flex flex-col items-center gap-2 rounded-lg border border-border bg-muted/50 p-4"
+                      className="flex flex-col items-center gap-2 rounded-xl border border-border bg-muted/40 p-4"
                     >
                       <div className="flex h-16 items-center justify-center">
                         <img
@@ -520,38 +465,37 @@ export default function DemonstratorsSection() {
                 </div>
               </div>
 
-              <div>
-                <h4 className="mb-2 text-lg font-semibold">Challenge</h4>
-                <p className="text-muted-foreground">
+              <div className="mb-6">
+                <h4 className="mb-2 text-lg font-semibold">🚨 Challenge</h4>
+                <p className="text-muted-foreground leading-relaxed">
                   {selectedDemo.challenge}
                 </p>
               </div>
 
-              <div>
+              <div className="mb-6 border-t border-border pt-6">
                 <h4 className="mb-2 text-lg font-semibold">
-                  AI-PRISM Solution
+                  🤖AI-PRISM Approach
                 </h4>
-                <p className="text-muted-foreground">{selectedDemo.solution}</p>
+                <p className="text-muted-foreground leading-relaxed">{selectedDemo.solution}</p>
               </div>
 
-              <div>
-                <h4 className="mb-3 text-lg font-semibold">Expected Results</h4>
-                <ul className="space-y-2">
+              <div className="mb-6 border-t border-border pt-6">
+                <h4 className="mb-3 text-lg font-semibold">📊Impact & Outcomes</h4>
+                <div className="flex flex-wrap gap-3">
                   {selectedDemo.results.map((result, index) => (
-                    <li
+                    <span
                       key={index}
-                      className="flex items-start gap-2 text-muted-foreground"
+                      className="rounded-lg border border-primary/20 bg-primary/5 px-4 py-2 text-sm font-semibold text-primary shadow-sm transition-transform hover:scale-[1.03]"
                     >
-                      <span className="mt-1 text-primary">•</span>
-                      <span>{result}</span>
-                    </li>
+                      {result}
+                    </span>
                   ))}
-                </ul>
+                </div>
               </div>
             </div>
-          )}
-        </DialogContent>
-      </Dialog>
+          </div>
+        </div>
+      </section>
     </>
   );
 }

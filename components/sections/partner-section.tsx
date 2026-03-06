@@ -1,7 +1,9 @@
+
+
 "use client";
 
-import { useState } from "react";
-import { ArrowRight, X } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { ArrowRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -15,68 +17,151 @@ import {
 
 type AllianceLogo = {
   name: string;
-  href: string;
-  src: string; // must be under /public, referenced as /logo/alliance_logo/...
+  href?: string;
+  src: string;
 };
 
 function AllianceLogoCarousel({
   logos,
-  speedSeconds = 35,
+  autoPlay = true,
+  intervalMs = 3000,
 }: {
   logos: AllianceLogo[];
-  speedSeconds?: number;
+  autoPlay?: boolean;
+  intervalMs?: number;
 }) {
-  // Duplicate list for seamless looping
-  const loop = [...logos, ...logos];
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const visibleCount = 4;
+
+  const safeLogos = useMemo(() => {
+    if (logos.length === 0) return [];
+
+    if (logos.length > visibleCount) {
+      return logos;
+    }
+
+    const repeated = [...logos];
+    while (repeated.length < visibleCount) {
+      repeated.push(...logos);
+    }
+
+    return repeated.slice(0, visibleCount);
+  }, [logos]);
+
+  const maxIndex = Math.max(safeLogos.length - visibleCount, 0);
+
+  useEffect(() => {
+    if (!autoPlay || isHovered || safeLogos.length <= visibleCount) return;
+
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+    }, intervalMs);
+
+    return () => clearInterval(timer);
+  }, [autoPlay, intervalMs, isHovered, maxIndex, safeLogos.length, visibleCount]);
+
+  const goNext = () => {
+    setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+  };
+
+  const goPrev = () => {
+    setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
+  };
+
+  if (safeLogos.length === 0) return null;
 
   return (
-    <div className="group relative overflow-hidden rounded-xl border border-border bg-background">
-      {/* Edge fades so it looks less janky */}
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-background to-transparent" />
-      {/* <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-background to-transparent" /> */}
-
-      <div
-        className="flex w-max items-center gap-10 py-6 will-change-transform [animation-play-state:running] group-hover:[animation-play-state:paused]"
-        style={{
-          animation: `alliance-scroll ${speedSeconds}s linear infinite`,
-        }}
+    <div
+      className="relative mx-auto w-full max-w-[1400px] rounded-2xl border border-border bg-background px-10 py-12 shadow-sm"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <button
+        type="button"
+        onClick={goPrev}
+        className="absolute left-3 top-1/2 z-10 -translate-y-1/2 rounded-full border border-border bg-background px-3 py-2 text-lg shadow transition hover:bg-muted"
+        aria-label="Previous logos"
       >
-        {loop.map((logo, idx) => (
-          <a
-            key={`${logo.name}-${idx}`}
-            href={logo.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex h-14 items-center justify-center"
-            aria-label={logo.name}
-            title={logo.name}
-          >
-            <img
-              src={logo.src}
-              alt={logo.name}
-              className="h-12 w-auto object-contain opacity-80 transition group-hover:opacity-100"
-              loading="lazy"
-            />
-          </a>
-        ))}
+        ‹
+      </button>
+
+      <button
+        type="button"
+        onClick={goNext}
+        className="absolute right-3 top-1/2 z-10 -translate-y-1/2 rounded-full border border-border bg-background px-3 py-2 text-lg shadow transition hover:bg-muted"
+        aria-label="Next logos"
+      >
+        ›
+      </button>
+
+      <div className="overflow-hidden">
+        <div
+          className="flex transition-transform duration-700 ease-in-out"
+          style={{
+            transform: `translateX(-${currentIndex * (100 / visibleCount)}%)`,
+          }}
+        >
+          {safeLogos.map((logo, idx) => {
+            const content = (
+              <div className="flex h-36 w-full items-center justify-center rounded-xl border border-border bg-muted/30 p-6 transition hover:shadow-md">
+                <img
+                  src={logo.src}
+                  alt={logo.name}
+                  className="max-h-24 w-auto object-contain"
+                  loading="lazy"
+                />
+              </div>
+            );
+
+            return (
+              <div
+                key={`${logo.name}-${idx}`}
+                className="flex w-1/4 shrink-0 items-center justify-center px-4"
+              >
+                {logo.href ? (
+                  <a
+                    href={logo.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title={logo.name}
+                    aria-label={logo.name}
+                    className="w-full"
+                  >
+                    {content}
+                  </a>
+                ) : (
+                  <div title={logo.name} aria-label={logo.name} className="w-full">
+                    {content}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
       </div>
 
-      {/* Local keyframes for this file */}
-      <style jsx>{`
-        @keyframes alliance-scroll {
-          from {
-            transform: translateX(0);
-          }
-          to {
-            transform: translateX(-50%);
-          }
-        }
-      `}</style>
+      {maxIndex > 0 && (
+        <div className="mt-6 flex justify-center gap-2">
+          {Array.from({ length: maxIndex + 1 }).map((_, idx) => (
+            <button
+              key={idx}
+              type="button"
+              onClick={() => setCurrentIndex(idx)}
+              className={`h-2.5 w-2.5 rounded-full transition ${
+                idx === currentIndex ? "bg-primary" : "bg-muted-foreground/30"
+              }`}
+              aria-label={`Go to slide ${idx + 1}`}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
 
-const allianceMembers: { name: string; href: string; src: string }[] = [
+const allianceMembers: AllianceLogo[] = [
   {
     name: "AI EDIH",
     href: "https://www.aiedihturkiye.com/en",
@@ -87,78 +172,71 @@ const allianceMembers: { name: string; href: string; src: string }[] = [
     href: "https://albict.al/",
     src: "/logo/alliance_logo/ALBICT.png",
   },
-    {
+  {
     name: "Better Quest",
     href: "https://betterquests.com/",
     src: "/logo/alliance_logo/BQ.jpg",
   },
-    {
+  {
     name: "EDIH4 Marche",
     href: "https://www.edih4marche.eu/en/",
     src: "/logo/alliance_logo/DIHM.png",
   },
-    {
+  {
     name: "DigitMAK",
     href: "https://digitmak.mk/",
     src: "/logo/alliance_logo/DM.png",
   },
-    {
+  {
     name: "Institute of Electronics and Computer Science",
     href: "https://ai4csm.eu/index.php",
     src: "/logo/alliance_logo/EDI.png",
   },
-    {
+  {
     name: "GDANSK University of Technology",
     href: "https://pg.edu.pl/en",
     src: "/logo/alliance_logo/GU.jpg",
   },
-  //   {
-  //   name: "ALBICT",
-  //   href: "https://albict.al/",
-  //   src: "/logo/alliance_logo/ALBICT.png",
-  // },
-    {
+  {
     name: "IFAR LAB",
     href: "https://ifarlab.ogu.edu.tr/",
     src: "/logo/alliance_logo/ILE.jpg",
   },
-    {
+  {
     name: "it_dnlpro",
     href: "https://itdni.pro/en/",
     src: "/logo/alliance_logo/ITD.png",
   },
-      {
+  {
     name: "LEANISTIC",
     href: "https://www.leanistic.com/",
     src: "/logo/alliance_logo/LLW.jpg",
   },
-      {
+  {
     name: "REDx Edge",
     href: "https://www.redxedge.com/",
     src: "/logo/alliance_logo/rdx.jpg",
   },
-      {
+  {
     name: "South Africa Eye",
-    // href: "https://example.com",
     src: "/logo/alliance_logo/SAE.jpg",
   },
-      {
+  {
     name: "School of Electrical Engineering, University of Belgrad",
     href: "https://www.etf.bg.ac.rs/en",
     src: "/logo/alliance_logo/SEEB.png",
   },
-      {
-    name: "tecnalia",
+  {
+    name: "Tecnalia",
     href: "https://www.tecnalia.com/en",
     src: "/logo/alliance_logo/tecnalia.png",
   },
-      {
+  {
     name: "University of Belgrad",
     href: "https://www.bg.ac.rs/home/",
     src: "/logo/alliance_logo/UoB.png",
   },
 ];
-
 
 const demonstrators = [
   {
@@ -191,7 +269,6 @@ const demonstrators = [
       "50% decrease in quality defects",
     ],
   },
-
   {
     category: "Home Appliances",
     location: "Turkey",
@@ -300,14 +377,14 @@ export default function DemonstratorsSection() {
               Alliance Members
             </h2>
             <p className="mx-auto max-w-2xl text-pretty text-muted-foreground">
-              See the prestigious members of the AI-Prism Alliance.
+              See the prestigious members of the AI-PRISM Alliance.
             </p>
           </div>
 
-          <AllianceLogoCarousel logos={allianceMembers} speedSeconds={40} />
+          <AllianceLogoCarousel logos={allianceMembers} intervalMs={3000} />
         </div>
       </section>
-      {/* Original */}
+
       <section className="border-b border-t border-border bg-muted/30 py-20">
         <div className="container mx-auto px-4">
           <div className="mb-12 text-center">
@@ -320,6 +397,7 @@ export default function DemonstratorsSection() {
               partners.
             </p>
           </div>
+
           <div className="flex flex-wrap justify-center gap-8">
             {demonstrators.map((demo, index) => (
               <Card
@@ -372,7 +450,6 @@ export default function DemonstratorsSection() {
         </div>
       </section>
 
-      {/* Modal */}
       <Dialog open={!!selectedDemo} onOpenChange={() => setSelectedDemo(null)}>
         <DialogContent className="max-h-[90vh] max-w-3xl overflow-y-auto">
           <DialogHeader>
@@ -386,7 +463,6 @@ export default function DemonstratorsSection() {
 
           {selectedDemo && (
             <div className="space-y-6 pt-4">
-              {/* Partners Grid */}
               <div>
                 <h4 className="mb-3 text-lg font-semibold">
                   Participating Partners
@@ -412,7 +488,6 @@ export default function DemonstratorsSection() {
                 </div>
               </div>
 
-              {/* Challenge */}
               <div>
                 <h4 className="mb-2 text-lg font-semibold">Challenge</h4>
                 <p className="text-muted-foreground">
@@ -420,7 +495,6 @@ export default function DemonstratorsSection() {
                 </p>
               </div>
 
-              {/* Solution */}
               <div>
                 <h4 className="mb-2 text-lg font-semibold">
                   AI-PRISM Solution
@@ -428,7 +502,6 @@ export default function DemonstratorsSection() {
                 <p className="text-muted-foreground">{selectedDemo.solution}</p>
               </div>
 
-              {/* Results */}
               <div>
                 <h4 className="mb-3 text-lg font-semibold">Expected Results</h4>
                 <ul className="space-y-2">

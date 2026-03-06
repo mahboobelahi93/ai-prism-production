@@ -89,7 +89,7 @@ const allianceMembers: { name: string; href: string; src: string }[] = [
   },
     {
     name: "Better Quest",
-    href: "https://example.com",
+    href: "https://betterquests.com/",
     src: "/logo/alliance_logo/BQ.jpg",
   },
     {
@@ -134,12 +134,12 @@ const allianceMembers: { name: string; href: string; src: string }[] = [
   },
       {
     name: "REDx Edge",
-    href: "https://example.com",
+    href: "https://www.redxedge.com/",
     src: "/logo/alliance_logo/rdx.jpg",
   },
       {
     name: "South Africa Eye",
-    href: "https://example.com",
+    // href: "https://example.com",
     src: "/logo/alliance_logo/SAE.jpg",
   },
       {
